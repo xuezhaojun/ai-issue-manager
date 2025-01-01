@@ -35744,6 +35744,8 @@ Instructions:
                 model: model,
                 messages: [{ role: "user", content: prompt }],
             });
+            // log the message
+            core.info(`Message: ${completion.choices[0].message.content}`);
             const response = JSON.parse(completion.choices[0].message.content || '{}');
             // Log the analysis
             core.info(`Analysis Summary: ${response.analysis.summary}`);

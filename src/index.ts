@@ -88,6 +88,9 @@ Instructions:
       messages: [{ role: "user", content: prompt }],
     });
 
+    // log the message
+    core.info(`Message: ${completion.choices[0].message.content}`);
+
     const response = JSON.parse(completion.choices[0].message.content || '{}') as AnalysisResponse;
 
     // Log the analysis
