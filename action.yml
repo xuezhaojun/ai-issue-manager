@@ -1,5 +1,5 @@
 name: 'AI Issue Manager'
-description: 'Automatically manage GitHub issues using AI to add labels, comment, or close issues'
+description: 'Automatically manage GitHub issues using LLM to add labels, comment, or close issues'
 author: 'AI Issue Manager'
 
 inputs:
