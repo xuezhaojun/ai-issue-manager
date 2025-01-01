@@ -1,0 +1,38 @@
+name: 'AI Issue Manager'
+description: 'Automatically manage GitHub issues using AI to add labels, comment, or close issues'
+author: 'AI Issue Manager'
+
+inputs:
+  openai_api_key:
+    description: 'OpenAI(or any compatible LLM provider) API key'
+    required: true
+  openai_api_url:
+    description: 'OpenAI(or any compatible LLM provider) API URL'
+    required: true
+  github_token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+  model:
+    description: 'OpenAI(or any compatible LLM provider) model to use (e.g., gpt-3.5-turbo, gpt-4)'
+    required: true
+  condition:
+    description: 'The condition will be used to determine if the action should be taken'
+    required: true
+  actions:
+    description: 'Actions to take on the issue (comment/close/label_add/label_remove), example: "comment,label_add"'
+    required: true
+  action_comment:
+    description: 'Comment content when action_type is comment'
+    required: false
+  action_labels:
+    description: 'Labels to add/remove when action_type is label_add or label_remove (comma-separated)'
+    required: false
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'message-square'
+  color: 'blue'

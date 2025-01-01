@@ -1,0 +1,27 @@
+name: Test AI Issue Manager
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+jobs:
+  test-bug-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Bug Report Format
+        uses: ./
+        with:
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          openai_api_url: https://api.deepseek.com/v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          model: "deepseek-chat"
+          condition: |
+            The issue should:
+            1. Be respectful and professional
+            2. Not contain offensive language
+            3. Not include spam or advertisements
+          actions: "comment,label_add,close"
+          action_comment: |
+            This issue has been closed as it violates our community guidelines.
+          action_labels: "spam,off-topic"
