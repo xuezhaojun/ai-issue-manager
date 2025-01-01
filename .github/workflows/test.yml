@@ -3,6 +3,10 @@ on:
   issues:
     types: [opened, edited, reopened]
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   test-bug-report:
     runs-on: ubuntu-latest

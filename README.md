@@ -30,6 +30,10 @@ on:
   issues:
     types: [opened, edited, reopened]
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   manage-issue:
     runs-on: ubuntu-latest
@@ -60,6 +64,10 @@ name: Issue Management
 on:
   issues:
     types: [opened, edited, reopened]
+
+permissions:
+  issues: write
+  contents: read
 
 jobs:
   manage-issue:
