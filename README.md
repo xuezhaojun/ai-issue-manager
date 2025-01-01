@@ -76,9 +76,9 @@ jobs:
           model: "gpt-3.5-turbo"
           condition: |
             The issue should:
-            1. Be respectful and professional
-            2. Not contain offensive language
-            3. Not include spam or advertisements
+            1. Not be respectful and professional
+            2. Contain offensive language
+            3. Include spam or advertisements
           actions: "comment,close"
           action_comment: "This issue has been closed as it violates our community guidelines."
 ```
