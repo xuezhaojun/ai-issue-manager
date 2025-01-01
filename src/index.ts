@@ -57,7 +57,7 @@ Body: ${issue.body || ''}
 ${condition}
 </condition>
 
-Please provide your evaluation in the following JSON format:
+Please provide your evaluation in the following JSON format, do not include any other text or markdown:
 
 {
   "meets_criteria": boolean,    // true if meets all conditions, false otherwise
@@ -88,10 +88,29 @@ Instructions:
       messages: [{ role: "user", content: prompt }],
     });
 
-    // log the message
-    core.info(`Message: ${completion.choices[0].message.content}`);
+    // Extract and parse JSON from the response
+    const extractAndParseJSON = (content: string): any => {
+      try {
+        // First try to parse it directly (in case it's pure JSON)
+        return JSON.parse(content);
+      } catch (e) {
+        // If direct parsing fails, try to extract JSON from markdown
+        const jsonMatch = content.match(/```(?:json)?\s*(\{[\s\S]*\})\s*```/);
+        if (jsonMatch) {
+          return JSON.parse(jsonMatch[1]);
+        }
+        // If both attempts fail, return empty object
+        return {};
+      }
+    };
 
-    const response = JSON.parse(completion.choices[0].message.content || '{}') as AnalysisResponse;
+    // Format and log the message
+    const responseData = extractAndParseJSON(completion.choices[0].message.content || '');
+    const formattedMessage = JSON.stringify(responseData, null, 2);
+    core.info('OpenAI Response:');
+    core.info(formattedMessage);
+
+    const response = responseData as AnalysisResponse;
 
     // Log the analysis
     core.info(`Analysis Summary: ${response.analysis.summary}`);
